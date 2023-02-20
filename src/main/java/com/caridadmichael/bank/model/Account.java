@@ -1,9 +1,14 @@
 package com.caridadmichael.bank.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Account {
@@ -12,41 +17,42 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private int openingBalance;
-	private String accountType;
-	private String status;
-	
-	public Account() {};
-	
-	public Account(int openingBalance , String accountType, String status) {
-		this.openingBalance = openingBalance;
-		this.accountType = accountType;
-		this.status = status;
+	private int balance = 0;
+	private boolean active;	
+
+	@OneToMany(mappedBy = "account", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	List<Transaction> transactions;
+
+	public Account() {
+	};
+
+	public Account(int balance, boolean active, List<Transaction> transactions) {
+		this.balance = balance;
+		this.active = active;		
+		this.transactions = transactions;
 	}
-	
 
 	public int getOpeningBalance() {
-		return openingBalance;
+		return balance;
 	}
 
-	public void setOpeningBalance(int openingBalance) {
-		this.openingBalance = openingBalance;
+	public void setOpeningBalance(int balance) {
+		this.balance = balance;
 	}
 
-	public String getAccountType() {
-		return accountType;
+	public boolean getActive() {
+		return this.active;
 	}
 
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
+	public void setActive(Boolean active) {
+		this.active = active;
+	}	
+
+	public void setTransactions(List<Transaction> transaction) {
+		this.transactions = transaction;
 	}
 
-	public String getStatus() {
-		return status;
+	public List<Transaction> getTransaction() {
+		return this.transactions;
 	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 }
