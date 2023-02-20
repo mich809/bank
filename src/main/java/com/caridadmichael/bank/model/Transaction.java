@@ -5,9 +5,12 @@ import java.util.Date;
 import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Transaction {
@@ -19,13 +22,18 @@ public class Transaction {
 	@CreatedDate
 	private Date dateOfTransaction;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "accountId")
+	private Account account;
+
 	public Transaction() {
 	}
 
-	public Transaction(Date dateOfTransaction, String typeOfTransaction, int transactionAmount) {
+	public Transaction(Date dateOfTransaction, String typeOfTransaction, int transactionAmount, Account account) {
 		this.dateOfTransaction = dateOfTransaction;
 		this.typeOfTransaction = typeOfTransaction;
 		this.transactionAmount = transactionAmount;
+		this.account = account;
 	}
 
 	private String typeOfTransaction;
@@ -53,6 +61,14 @@ public class Transaction {
 
 	public void setTransactionAmount(int transactionAmount) {
 		this.transactionAmount = transactionAmount;
+	}
+
+	public Account getAccount() {
+		return this.account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 }
