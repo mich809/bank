@@ -1,6 +1,8 @@
 package com.caridadmichael.bank.DTO;
 
-public record CustomerDTO(String firstName, String middleName, String lastName, String city, String telephone,
-		String occupation) {
+import com.caridadmichael.bank.model.Account;
+
+public record CustomerDTO(Long id, String firstName, String middleName, String lastName, String city, String telephone,
+		String occupation , Account account) {
 
 }
