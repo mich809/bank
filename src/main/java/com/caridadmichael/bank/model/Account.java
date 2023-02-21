@@ -16,9 +16,9 @@ public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
 	private int balance = 0;
 	private boolean active;	
+	private AccountType accountType;
 
 	@OneToMany(mappedBy = "account", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	List<Transaction> transactions;
@@ -26,10 +26,19 @@ public class Account {
 	public Account() {
 	};
 
-	public Account(int balance, boolean active, List<Transaction> transactions) {
+	public Account(int balance, boolean active, List<Transaction> transactions, AccountType accountType) {
 		this.balance = balance;
 		this.active = active;		
 		this.transactions = transactions;
+		this.setAccountType(accountType);
+	}
+	
+	public Long getId() {
+		return this.id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public int getOpeningBalance() {
@@ -54,5 +63,13 @@ public class Account {
 
 	public List<Transaction> getTransaction() {
 		return this.transactions;
+	}
+
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
 	}
 }
