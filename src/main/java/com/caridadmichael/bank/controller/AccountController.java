@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,16 @@ public class AccountController {
 
 	private final AccountService accountService;
 	
+	
 	public AccountController(AccountService accountService) {
 		this.accountService = accountService;
+	}
+	
+	@PostMapping("/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void createAccount(@PathVariable Long id ,@RequestBody Account account) {
+		logger.info(String.format("creating %s account for customer id: %s ", account.getAccountType(),id));
+		accountService.createAccount(id, account);
 	}
 
 	
