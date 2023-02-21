@@ -1,6 +1,7 @@
 package com.caridadmichael.bank.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -10,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 
@@ -25,23 +27,26 @@ public class Customer {
 	private String firstName;
 	private String middleName;
 	private String lastName;
-
 	private String password;
 	private String city;
 	private String telephone;
 	private String occupation;
+	private String checking;
+	private String saving;
+	
+
 	@CreatedDate
 	private Date creationDate;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id", referencedColumnName = "id")
-	private Account account;
+	private List<Account> account;
 
 	public Customer() {
 	}
 
 	public Customer(Long id, String firstName, String middleName, String lastName, String city, String telephone,
-			String occupation, Account account) {
+			String occupation, List<Account> account) {
 		this.id = id;
 		this.firstName = firstName;
 		this.middleName = middleName;
@@ -125,12 +130,28 @@ public class Customer {
 		this.password = password;
 	}
 
-	public Account getAccount() {
+	public List<Account> getAccount() {
 		return account;
 	}
 
-	public void setAccount(Account account) {
+	public void setAccount(List<Account> account) {
 		this.account = account;
+	}
+	
+	public String getChecking() {
+		return checking;
+	}
+
+	public void setChecking(String checking) {
+		this.checking = checking;
+	}
+
+	public String getSaving() {
+		return saving;
+	}
+
+	public void setSaving(String saving) {
+		this.saving = saving;
 	}
 
 }

@@ -18,13 +18,11 @@ import com.caridadmichael.bank.repository.CustomerRepo;
 @Service
 public class CustomerService {
 	private final CustomerRepo customerRepo;
-	private final AccountRepo accountRepo;
 
 	private final CustomerDTOMapper customerDTOMapper;
 
-	public CustomerService(CustomerRepo customerRepo,AccountRepo accountRepo, CustomerDTOMapper customerDTOMapper) {
+	public CustomerService(CustomerRepo customerRepo, CustomerDTOMapper customerDTOMapper) {
 		this.customerRepo = customerRepo;
-		this.accountRepo = accountRepo;
 		this.customerDTOMapper = customerDTOMapper;
 	}
 
@@ -35,8 +33,6 @@ public class CustomerService {
 //		customer.setAccount(account);		
 		customerRepo.save(customer);
 //		accountRepo.save(account);
-		
-		
 
 	}
 
@@ -57,7 +53,7 @@ public class CustomerService {
 		if (!customerRepo.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found.");
 		}
-		
+
 		customerRepo.save(customer);
 
 	}
