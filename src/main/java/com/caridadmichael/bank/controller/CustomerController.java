@@ -36,7 +36,7 @@ public class CustomerController {
 		this.customerService = customerService;
 	}
 
-	@PostMapping("")
+	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createCustomer(@RequestBody  Customer customer) {
 		logger.info(String.format("Account created for: %s %s ", customer.getFirstName(), customer.getLastName()));
@@ -58,7 +58,7 @@ public class CustomerController {
 
     }
 
-	@GetMapping("")
+	@GetMapping()
 	public List<CustomerDTO> getAllCustomer() {
 		logger.info(String.format("fetching all customers"));
 		return customerService.getAllCustomers();
