@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 
 @Entity
@@ -30,15 +32,14 @@ public class Customer {
 	private String password;
 	private String city;
 	private String telephone;
-	private String occupation;
+	private String occupation;	
 
-	
-
-	@CreatedDate
+	@Temporal(TemporalType.DATE)
 	private Date creationDate;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id", referencedColumnName = "id")
+	
 	private List<Account> account;
 
 	public Customer() {

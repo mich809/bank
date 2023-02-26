@@ -13,7 +13,7 @@ public class CustomerDTOMapper implements Function<Customer, CustomerDTO> {
 	@Override
 	public CustomerDTO apply(Customer customer) {
 		return new CustomerDTO(customer.getId(),customer.getFirstName(), customer.getMiddleName(), customer.getLastName(),
-				customer.getCity(), customer.getTelephone(), customer.getOccupation(), customer.getAccount());
+				customer.getCity(), customer.getTelephone(), customer.getOccupation(),customer.getCreationDate(), customer.getAccount());
 	}
 	
 	

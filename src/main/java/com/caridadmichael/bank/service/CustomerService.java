@@ -1,5 +1,6 @@
 package com.caridadmichael.bank.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,13 +27,9 @@ public class CustomerService {
 		this.customerDTOMapper = customerDTOMapper;
 	}
 
-	public void addCustomer(Customer customer) {
-//		Account account = new Account();
-//		account.setActive(true);
-//		account.setCustomer(customer);
-//		customer.setAccount(account);		
+	public void addCustomer(Customer customer) {	
+		customer.setCreationDate(new Date());
 		customerRepo.save(customer);
-//		accountRepo.save(account);
 
 	}
 
