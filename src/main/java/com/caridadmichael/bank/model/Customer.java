@@ -31,8 +31,7 @@ public class Customer {
 	private String city;
 	private String telephone;
 	private String occupation;
-	private String checking;
-	private String saving;
+
 	
 
 	@CreatedDate
@@ -138,20 +137,5 @@ public class Customer {
 		this.account = account;
 	}
 	
-	public String getChecking() {
-		return checking;
-	}
-
-	public void setChecking(String checking) {
-		this.checking = checking;
-	}
-
-	public String getSaving() {
-		return saving;
-	}
-
-	public void setSaving(String saving) {
-		this.saving = saving;
-	}
 
 }
