@@ -21,7 +21,7 @@ public class AccountService {
 	}
 
 	public void createAccount(Long id,Account account) {
-		if (customerRepo.findById(id).isEmpty()) {
+		if (!(customerRepo.existsById(id))) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found.");
 		}		
 		Customer customer = customerRepo.findById(id).get();
