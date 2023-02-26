@@ -18,6 +18,10 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	private TransactionType transactionType;
+	
+	private int transactionAmount;
 
 	@CreatedDate
 	private Date dateOfTransaction;
@@ -25,19 +29,42 @@ public class Transaction {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "accountId")
 	private Account account;
+	
+	
 
 	public Transaction() {
 	}
 
-	public Transaction(Date dateOfTransaction, String typeOfTransaction, int transactionAmount, Account account) {
+	public Transaction(Date dateOfTransaction, TransactionType transactionType, int transactionAmount, Account account) {
 		this.dateOfTransaction = dateOfTransaction;
-		this.typeOfTransaction = typeOfTransaction;
+		this.transactionType = transactionType;
 		this.transactionAmount = transactionAmount;
 		this.account = account;
 	}
 
-	private String typeOfTransaction;
-	private int transactionAmount;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public TransactionType getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(TransactionType transactionType) {
+		this.transactionType = transactionType;
+	}
+
+	public int getTransctionAmount() {
+		return transactionAmount;
+	}
+
+	public void setTransctionAmount(int transctionAmount) {
+		this.transactionAmount = transctionAmount;
+	}
 
 	public Date getDateOfTransaction() {
 		return dateOfTransaction;
@@ -46,22 +73,7 @@ public class Transaction {
 	public void setDateOfTransaction(Date dateOfTransaction) {
 		this.dateOfTransaction = dateOfTransaction;
 	}
-
-	public String getTypeOfTransaction() {
-		return typeOfTransaction;
-	}
-
-	public void setTypeOfTransaction(String typeOfTransaction) {
-		this.typeOfTransaction = typeOfTransaction;
-	}
-
-	public int getTransactionAmount() {
-		return transactionAmount;
-	}
-
-	public void setTransactionAmount(int transactionAmount) {
-		this.transactionAmount = transactionAmount;
-	}
+	
 
 	public Account getAccount() {
 		return this.account;
