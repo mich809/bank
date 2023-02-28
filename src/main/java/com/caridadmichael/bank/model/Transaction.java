@@ -2,44 +2,41 @@ package com.caridadmichael.bank.model;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class Transaction {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "transaction_id_sequence", sequenceName = "transaction_id_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_id_sequence")
 	private Long id;
 	
 	private TransactionType transactionType;
 	
 	private int transactionAmount;
-
-	@CreatedDate
+	
+	@Temporal(TemporalType.DATE)
 	private Date dateOfTransaction;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "accountId")
-	private Account account;
+	
 	
 	
 
 	public Transaction() {
 	}
 
-	public Transaction(Date dateOfTransaction, TransactionType transactionType, int transactionAmount, Account account) {
+	public Transaction(Date dateOfTransaction, TransactionType transactionType, int transactionAmount) {
 		this.dateOfTransaction = dateOfTransaction;
 		this.transactionType = transactionType;
-		this.transactionAmount = transactionAmount;
-		this.account = account;
+		this.setTransactionAmount(transactionAmount);
 	}
 
 	public Long getId() {
@@ -58,13 +55,6 @@ public class Transaction {
 		this.transactionType = transactionType;
 	}
 
-	public int getTransctionAmount() {
-		return transactionAmount;
-	}
-
-	public void setTransctionAmount(int transctionAmount) {
-		this.transactionAmount = transctionAmount;
-	}
 
 	public Date getDateOfTransaction() {
 		return dateOfTransaction;
@@ -75,12 +65,12 @@ public class Transaction {
 	}
 	
 
-	public Account getAccount() {
-		return this.account;
+	public int getTransactionAmount() {
+		return transactionAmount;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setTransactionAmount(int transactionAmount) {
+		this.transactionAmount = transactionAmount;
 	}
 
 }
