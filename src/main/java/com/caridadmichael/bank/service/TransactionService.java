@@ -1,5 +1,6 @@
 package com.caridadmichael.bank.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -10,13 +11,17 @@ import com.caridadmichael.bank.model.Account;
 import com.caridadmichael.bank.model.Transaction;
 import com.caridadmichael.bank.model.TransactionType;
 import com.caridadmichael.bank.repository.AccountRepo;
+import com.caridadmichael.bank.repository.TransactionRepo;
 
 @Service
 public class TransactionService {
 	private final AccountRepo accountRepo;
+	private final TransactionRepo transactionRepo;
 
-	public TransactionService(AccountRepo accountRepo) {
+
+	public TransactionService(AccountRepo accountRepo, TransactionRepo transactionRepo) {
 		this.accountRepo = accountRepo;
+		this.transactionRepo = transactionRepo;
 
 	}
 
@@ -24,10 +29,20 @@ public class TransactionService {
 		if (!(accountRepo.existsById(id))) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "account not found.");
 		}
-
+		transaction.setDateOfTransaction(new Date());
 		Account account = accountRepo.findById(id).get();
 		account.getTransaction().add(transaction);
+
+		if (transaction.getTransactionType() == TransactionType.DEPOSIT ) {
+			account.setBalance(account.getBalance() + transaction.getTransactionAmount());
+		} else {
+			account.setBalance(account.getBalance() - transaction.getTransactionAmount());
+		}
+
+		
+		
 		accountRepo.save(account);
+	
 
 	}
 

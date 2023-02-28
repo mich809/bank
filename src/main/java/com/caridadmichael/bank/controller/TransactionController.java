@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,9 @@ import com.caridadmichael.bank.service.TransactionService;
 
 @RestController
 @RequestMapping("/api/transaction")
+@CrossOrigin
 public class TransactionController {
-	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TransactionController.class);
 	private final TransactionService transactionService;
 	
 	public TransactionController(TransactionService transactionService) {
@@ -43,7 +45,7 @@ public class TransactionController {
 	@PostMapping("/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void addTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
-		logger.info(String.format("adding transaction to account"));
+		logger.info(String.format("adding transaction to account: %s ",id));
 		transactionService.addTransaction(id,transaction);
 	}
 
