@@ -12,11 +12,9 @@ import com.caridadmichael.bank.repository.CustomerRepo;
 
 @Service
 public class AccountService {
-	private final AccountRepo accountRepo;
 	private final CustomerRepo customerRepo;
 	
-	public AccountService(AccountRepo accountRepo , CustomerRepo customerRepo) {
-		this.accountRepo = accountRepo;
+	public AccountService( CustomerRepo customerRepo) {
 		this.customerRepo = customerRepo;
 	}
 
