@@ -3,7 +3,6 @@ package com.caridadmichael.bank.model;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -12,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -38,7 +36,7 @@ public class Customer {
 	private Date creationDate;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "account_id", referencedColumnName = "id")
+	@JoinColumn(name = "customer_id", referencedColumnName = "id")
 	
 	private List<Account> account;
 
