@@ -4,23 +4,26 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
 
 @Entity
 public class Account {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "account_id_sequence", sequenceName = "account_id_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_sequence")
 	private Long id;
 	private int balance = 0;
 	private boolean active;	
 	private AccountType accountType;
-
-	@OneToMany(mappedBy = "account", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id", referencedColumnName = "id")
 	List<Transaction> transactions;
 
 	public Account() {
@@ -41,11 +44,11 @@ public class Account {
 		this.id = id;
 	}
 
-	public int getOpeningBalance() {
+	public int getBalance() {
 		return balance;
 	}
 
-	public void setOpeningBalance(int balance) {
+	public void setBalance(int balance) {
 		this.balance = balance;
 	}
 
@@ -57,8 +60,8 @@ public class Account {
 		this.active = active;
 	}	
 
-	public void setTransactions(List<Transaction> transaction) {
-		this.transactions = transaction;
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 
 	public List<Transaction> getTransaction() {
