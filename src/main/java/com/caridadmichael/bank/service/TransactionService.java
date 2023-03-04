@@ -1,6 +1,6 @@
 package com.caridadmichael.bank.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class TransactionService {
 		if (!(accountRepo.existsById(id))) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "account not found.");
 		}
-		transaction.setDateOfTransaction(new Date());
+		transaction.setDateOfTransaction(LocalDate.now());
 		Account account = accountRepo.findById(id).get();
 		account.getTransaction().add(transaction);
 
