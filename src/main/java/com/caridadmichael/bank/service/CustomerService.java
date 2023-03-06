@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,6 +30,7 @@ public class CustomerService {
 
 	public void addCustomer(Customer customer) {	
 		customer.setCreationDate(new Date());
+		customer.setPassword(new BCryptPasswordEncoder().encode(customer.getPassword()));
 		customerRepo.save(customer);
 
 	}
