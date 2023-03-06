@@ -24,6 +24,7 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_sequence")
 	private Long id;
 
+	private String username;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -36,16 +37,16 @@ public class Customer {
 	private Date creationDate;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_id", referencedColumnName = "id")
-	
+	@JoinColumn(name = "customer_id", referencedColumnName = "id")	
 	private List<Account> account;
 
 	public Customer() {
 	}
 
-	public Customer(Long id, String firstName, String middleName, String lastName, String city, String telephone,
+	public Customer(Long id, String username ,String firstName, String middleName, String lastName, String city, String telephone,
 			String occupation, List<Account> account) {
 		this.id = id;
+		this.username = username;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -135,6 +136,17 @@ public class Customer {
 	public void setAccount(List<Account> account) {
 		this.account = account;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	
+	
 	
 
 }
